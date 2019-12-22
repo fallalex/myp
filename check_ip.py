@@ -18,6 +18,8 @@ it uses:
 It is based off of commands like the following:
     dig +short A myip.opendns.com @resolver1.opendns.com
     dig +short TXT o-o.myaddr.l.google.com @ns1.google.com
+    dig whoami.akamai.net. @ns1-1.akamaitech.net. +short
+    nslookup -type=txt o-o.myaddr.l.google.com ns1.google.com
     curl checkip.amazonaws.com
 
 The goal is not to check that the public IP returned by different services is the same.
@@ -91,10 +93,10 @@ def main():
 
     # More robust DNS options
     ns_resolver = dns.resolver.Resolver()
-    ns_resolver.nameservers = opendns + google 
+    ns_resolver.nameservers = opendns + google
     public_ip_dns(ns_resolver, nameservers_opendns, 'A', 'myip.opendns.com', 'A')
     public_ip_dns(ns_resolver, nameservers_google, 'A', 'o-o.myaddr.l.google.com', 'TXT')
-    
+
 
 if __name__ == "__main__":
     main()
